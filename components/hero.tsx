@@ -1,8 +1,11 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export function Hero() {
+  const router = useRouter()
   return (
     <section className="pt-24 pb-12 md:pt-32 md:pb-20">
       <div className="container flex flex-col items-center text-center">
@@ -20,7 +23,7 @@ export function Hero() {
         <Button 
           size="lg" 
           className="mt-8 h-12 bg-blue-600 hover:bg-blue-700"
-          onClick={() => window.location.href = '#features'}
+          onClick={() => router.push('#features')}
         >
           Learn More
           <ArrowRight className="ml-2 h-5 w-4" />
