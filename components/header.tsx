@@ -5,9 +5,11 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Brain } from 'lucide-react'
 import { AuthDialog } from "@/components/auth-dialog"
+import { useAuth } from '@/contexts/AuthContext'
 
 export function Header() {
   const [showAuth, setShowAuth] = useState(false)
+  const { user, logout } = useAuth()
 
   return (
     <>
@@ -28,12 +30,21 @@ export function Header() {
               Pricing
             </Link>
           </nav>
-          <Button 
-            className="bg-blue-600 hover:bg-blue-700"
-            onClick={() => setShowAuth(true)}
-          >
-            Get Started
-          </Button>
+          {user ? (
+            <Button 
+              className="bg-blue-600 hover:bg-blue-700"
+              onClick={logout}
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button 
+              className="bg-blue-600 hover:bg-blue-700"
+              onClick={() => setShowAuth(true)}
+            >
+              Login
+            </Button>
+          )}
         </div>
       </header>
       <AuthDialog isOpen={showAuth} onClose={() => setShowAuth(false)} />

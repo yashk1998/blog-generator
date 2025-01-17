@@ -2,6 +2,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { AuthProvider } from '@/contexts/AuthContext'
+import { SidePanel } from '@/components/SidePanel'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,11 +20,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        <main>
-          {children}
-        </main>
-        <Footer />
+        <AuthProvider>
+          <Header />
+          <div className="flex">
+            <SidePanel />
+            <main className="flex-1 ml-64">
+              {children}
+            </main>
+          </div>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   )
