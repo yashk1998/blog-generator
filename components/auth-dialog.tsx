@@ -35,7 +35,7 @@ export function AuthDialog({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   //const [user, setUser] = useState<User | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { login } = useAuth();
   const dispatch = useDispatch();
 
@@ -59,12 +59,13 @@ export function AuthDialog({
 
       const data = await response.json();
       const loggedInUser: User = data.user;
-     
+
       dispatch(setUser(loggedInUser));
       console.log("User after dispatch:", loggedInUser);
       localStorage.setItem("user", JSON.stringify(loggedInUser));
 
       onClose();
+      window.location.reload();
     } catch (error: any) {
       console.error("Login error:", error);
       setErrorMessage(error?.message || "An unexpected error occurred.");
