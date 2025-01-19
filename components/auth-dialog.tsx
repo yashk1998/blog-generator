@@ -15,6 +15,7 @@ import { Icons } from "@/components/icons";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAuth } from "@/contexts/AuthContext";
 import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/authSlice";
 //import { login } from "../redux/authSlice";
 
 type User = {
@@ -33,7 +34,7 @@ export function AuthDialog({
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState<User | null>(null);
+  //const [user, setUser] = useState<User | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null); 
   const { login } = useAuth();
   const dispatch = useDispatch();
@@ -59,10 +60,11 @@ export function AuthDialog({
       const data = await response.json();
       const loggedInUser: User = data.user;
      
-      setUser(loggedInUser);
+      dispatch(setUser(loggedInUser));
+      console.log("User after dispatch:", loggedInUser);
       localStorage.setItem("user", JSON.stringify(loggedInUser));
 
-      onClose(); 
+      onClose();
     } catch (error: any) {
       console.error("Login error:", error);
       setErrorMessage(error?.message || "An unexpected error occurred.");
